@@ -1,0 +1,57 @@
+Date,Org ID,Org Type,Environment Name,Environment Type,Tier,IPU Per Unit,Usage,Consumption (IPUs)
+2024-03-14T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.030556,0.0007639
+2024-03-14T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,50.484143,1.262103575
+2024-03-14T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,371.386763,9.284669075
+2024-03-14T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.938893,0.023472325
+2024-03-13T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,1096.063551,27.40158878
+2024-03-13T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_Azure_Agent,Secure Agent Group,2000.000 +,0.025,0.004444,0.0001111
+2024-03-13T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,67.424717,1.685617925
+2024-03-13T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.377778,0.00944445
+2024-03-13T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_GCP_Agents,Secure Agent Group,2000.000 +,0.025,0.004444,0.0001111
+2024-03-13T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,7.090299,0.177257475
+2024-03-12T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.475555,0.011888875
+2024-03-12T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,72.953049,1.823826225
+2024-03-12T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,678.965391,16.97413478
+2024-03-12T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,8.323907,0.208097675
+2024-03-11T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,82.993873,2.074846825
+2024-03-11T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.511389,0.012784725
+2024-03-11T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,944.354869,23.60887173
+2024-03-11T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,8.378627,0.209465675
+2024-03-10T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,422.449715,10.56124288
+2024-03-10T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.291945,0.007298625
+2024-03-10T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,8.117816,0.2029454
+2024-03-09T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,456.932838,11.42332095
+2024-03-09T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.288055,0.007201375
+2024-03-09T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,8.1064,0.20266
+2024-03-08T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,543.416208,13.5854052
+2024-03-08T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.446666,0.01116665
+2024-03-08T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,8.275866,0.20689665
+2024-03-07T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,729.170035,18.22925088
+2024-03-07T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,34.642487,0.866062175
+2024-03-07T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,1.027776,0.0256944
+2024-03-07T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,8.741403,0.218535075
+2024-03-06T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,5.779722,0.14449305
+2024-03-06T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.728333,0.018208325
+2024-03-06T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,713.207457,17.83018643
+2024-03-06T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,5.591409,0.139785225
+2024-03-05T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,0.000 - 2000.000,0.16,51.016816,8.16269056
+2024-03-05T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,0.855279,0.021381975
+2024-03-05T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,2000.000 +,0.025,645.784563,16.14461408
+2024-03-05T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,19.65168,0.491292
+2024-03-05T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,2000.000 +,0.025,3.683358,0.09208395
+2024-03-04T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,1.722491,0.27559856
+2024-03-04T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,0.3825,0.0612
+2024-03-04T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,0.000 - 2000.000,0.16,567.412254,90.78596064
+2024-03-04T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,3.326985,0.5323176
+2024-03-03T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,0.273888,0.04382208
+2024-03-03T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,0.000 - 2000.000,0.16,362.680568,58.02889088
+2024-03-03T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,3.48782,0.5580512
+2024-03-02T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,0.297224,0.04755584
+2024-03-02T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,5.306095,0.8489752
+2024-03-02T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,0.000 - 2000.000,0.16,536.09272,85.7748352
+2024-03-02T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,3.812793,0.61004688
+2024-03-01T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,IICS_PROD,Secure Agent Group,0.000 - 2000.000,0.16,450.591494,72.09463904
+2024-03-01T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,LinuxAgent,Secure Agent Group,0.000 - 2000.000,0.16,2.234166,0.35746656
+2024-03-01T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-120.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,0.400833,0.06413328
+2024-03-01T00:00:00Z,2NNUr2oQ5iPbtp62EsklIw,Production,ip-10-23-86-224.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,6.892151,1.10274416
+2024-03-01T00:00:00Z,fK9SjXuzAGbjTiJ6fc56o1,Sandbox,ip-10-24-242-109.ap-south-1.compute.internal,Secure Agent Group,0.000 - 2000.000,0.16,4.069202,0.65107232

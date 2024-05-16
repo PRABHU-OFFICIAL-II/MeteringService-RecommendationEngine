@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
+import 'package:recommendation_engine_ipu/display_data.dart';
 
 class UploadReportScreen extends StatefulWidget {
   const UploadReportScreen({super.key});
@@ -35,14 +36,14 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
         setState(() {
           csvData = data;
         });
-        _showSnackBar(
-            'CSV validated successfully'); // Show SnackBar on successful validation
+        _validatedDialog();
       } else {
         // No file selected
         print('No file selected');
       }
     } catch (e) {
       print('Error loading CSV file: $e');
+      _inValidatedDialog();
     } finally {
       setState(() {
         isLoading = false; // Set loading state to false after loading completes
@@ -50,13 +51,51 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
     }
   }
 
-  void _showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(
-            seconds: 2), // Duration for which the SnackBar is visible
-      ),
+  Future<void> _validatedDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Data Validation'),
+          content: const SingleChildScrollView(
+              child: Text("Data Validated Successfully")),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Done'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DisplayData()));
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _inValidatedDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Data Validation'),
+          content: const SingleChildScrollView(
+              child: Text("Data Validation Failed")),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Retry'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -64,7 +103,7 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Upload Report'),
+        title: const Text('IPU Audit Report'),
       ),
       body: Center(
         child: Column(
@@ -72,7 +111,7 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
           children: <Widget>[
             ElevatedButton(
               onPressed: _loadCSV,
-              child: const Text('Upload CSV'),
+              child: const Text('Upload Audit Report'),
             ),
             const SizedBox(height: 20),
             // Show circular loading indicator while loading
