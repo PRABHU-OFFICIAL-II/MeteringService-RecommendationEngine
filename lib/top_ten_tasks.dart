@@ -4,7 +4,7 @@ import 'package:pie_chart/pie_chart.dart';
 class TopTenTasks extends StatefulWidget {
   final List<Task> tasks;
 
-  TopTenTasks({super.key, required this.tasks});
+  const TopTenTasks({super.key, required this.tasks});
 
   @override
   State<TopTenTasks> createState() => _TopTenTasksState();
@@ -41,11 +41,6 @@ class _TopTenTasksState extends State<TopTenTasks> {
     for (var entry in sortedTasks) {
       pieChartData[entry.key] = entry.value;
     }
-
-    ChartValuesOptions options = const ChartValuesOptions(
-      showChartValuesInPercentage: true,
-      showChartValuesOutside: true,
-    );
 
     return GestureDetector(
       onTapDown: (TapDownDetails details) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:recommendation_engine_ipu/display_data.dart';
-import 'package:recommendation_engine_ipu/upload_report.dart';
 
 void main() {
   runApp(const MyApp());
