@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
+import 'package:recommendation_engine_ipu/top_ten_tasks.dart';
 
 class DisplayData extends StatefulWidget {
   const DisplayData({super.key});
@@ -21,6 +21,7 @@ class TaskData {
 class _DisplayDataState extends State<DisplayData>
     with SingleTickerProviderStateMixin {
   late List<TaskData> taskData;
+  late Map<String, dynamic> orgData = {};
 
   Future<Map<String, dynamic>> fetchData() async {
     final response = await http.get(Uri.parse(
@@ -28,25 +29,28 @@ class _DisplayDataState extends State<DisplayData>
     if (response.statusCode == 200) {
       final Map<String, dynamic> organizations = json.decode(response.body);
       //print(organizations);
+      orgData = organizations;
       return organizations;
     } else {
       throw Exception('Failed to load data');
     }
   }
 
+  String orgId = "";
+
   void _dataRefresh() {
     setState(() {
       fetchData().then((data) {
         // Handle the fetched data here
-        setState(() {});
+        setState(() {
+          orgId = data["Org ID"];
+        });
       }).catchError((error) {
         // Handle any errors that occur during the API call
         print('Error fetching data: $error');
       });
     });
   }
-
-  String orgId = "";
 
   @override
   Widget build(BuildContext context) {
@@ -60,17 +64,8 @@ class _DisplayDataState extends State<DisplayData>
           ),
         ],
       ),
-      body: Row(children: [
+      body: ListView(children: [
         Column(children: [
-          // Header Title
-          Text(
-            "Task Execution Report for org : $orgId",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-
           // Map Data Parser and Widget Builder
           FutureBuilder<Map<String, dynamic>>(
               future: fetchData(),
@@ -99,6 +94,13 @@ class _DisplayDataState extends State<DisplayData>
                   taskData = tempTaskData;
                   tempTaskData.sort((a, b) => a.date.compareTo(b.date));
 
+                  // Data from PIE chart
+                  final List<Task> tasks =
+                      (snapshot.data!["Tasks"] as Map<String, dynamic>)
+                          .values
+                          .map((taskJson) => Task.fromJson(taskJson))
+                          .toList();
+
                   // Side Title Widget for Line Graph
                   Widget customTitlesWidget(double value, TitleMeta titleMeta) {
                     final index = value.toInt();
@@ -123,101 +125,134 @@ class _DisplayDataState extends State<DisplayData>
                     return Container();
                   }
 
-                  return SizedBox(
-                    height: 600,
-                    width: 800,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: LineChart(
-                        LineChartData(
-                          titlesData: FlTitlesData(
-                            bottomTitles: AxisTitles(
-                                axisNameSize: 100,
-                                axisNameWidget: const Text(
-                                  "Task Execution Dates",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                drawBelowEverything: true,
-                                sideTitles: SideTitles(
-                                    showTitles: true,
-                                    reservedSize: 25,
-                                    getTitlesWidget: customTitlesWidget)),
-                            // Hide left titles
-                            leftTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false),
-                                axisNameSize: 40,
-                                axisNameWidget: Text(
-                                  "No. of Tasks Executed",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                )),
-                            // Hide top titles
-                            topTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false)),
-                            // Hide right titles
-                            rightTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false)),
-                          ),
-                          lineTouchData: LineTouchData(
-                            touchTooltipData: LineTouchTooltipData(
-                              getTooltipItems:
-                                  (List<LineBarSpot> touchedSpots) {
-                                return touchedSpots
-                                    .map((LineBarSpot touchedSpot) {
-                                  const TextStyle textStyle = TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  );
-                                  // Get the integer value from the double value of the spot
-                                  final int value = touchedSpot.y.toInt();
-                                  // Return the tooltip item with the integer value
-                                  return LineTooltipItem(
-                                    '$value', // Display the integer value
-                                    textStyle,
-                                  );
-                                }).toList();
-                              },
+                  return Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          children: [
+                            Text(
+                              "Task Execution Report for org : $orgId",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
                             ),
-                          ),
-                          borderData: FlBorderData(
-                            show: true,
-                            border: Border.all(color: Colors.red),
-                          ),
-                          minX: 0,
-                          maxX: taskData.length.toDouble() - 1,
-                          minY: 0,
-                          maxY: taskData
-                                  .map((data) => data.taskCount)
-                                  .reduce((a, b) => a > b ? a : b)
-                                  .toDouble() +
-                              5,
-                          lineBarsData: [
-                            LineChartBarData(
-                              spots: taskData.map((data) {
-                                // Map taskData to FlSpot for the chart
-                                return FlSpot(taskData.indexOf(data).toDouble(),
-                                    data.taskCount.toDouble());
-                              }).toList(),
-                              isCurved: true,
-                              color: Colors.blue,
-                              barWidth: 4,
-                              isStrokeCapRound: true,
-                              belowBarData: BarAreaData(show: false),
+                            SizedBox(
+                              height: 600,
+                              width: 800,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: LineChart(
+                                  LineChartData(
+                                    titlesData: FlTitlesData(
+                                      bottomTitles: AxisTitles(
+                                          axisNameSize: 100,
+                                          axisNameWidget: const Text(
+                                            "Task Execution Dates",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          drawBelowEverything: true,
+                                          sideTitles: SideTitles(
+                                              showTitles: true,
+                                              reservedSize: 25,
+                                              getTitlesWidget:
+                                                  customTitlesWidget)),
+                                      // Hide left titles
+                                      leftTitles: const AxisTitles(
+                                          sideTitles:
+                                              SideTitles(showTitles: false),
+                                          axisNameSize: 40,
+                                          axisNameWidget: Text(
+                                            "No. of Tasks Executed",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                      // Hide top titles
+                                      topTitles: const AxisTitles(
+                                          sideTitles:
+                                              SideTitles(showTitles: false)),
+                                      // Hide right titles
+                                      rightTitles: const AxisTitles(
+                                          sideTitles:
+                                              SideTitles(showTitles: false)),
+                                    ),
+                                    lineTouchData: LineTouchData(
+                                      touchTooltipData: LineTouchTooltipData(
+                                        getTooltipItems:
+                                            (List<LineBarSpot> touchedSpots) {
+                                          return touchedSpots
+                                              .map((LineBarSpot touchedSpot) {
+                                            const TextStyle textStyle =
+                                                TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            );
+                                            // Get the integer value from the double value of the spot
+                                            final int value =
+                                                touchedSpot.y.toInt();
+                                            // Return the tooltip item with the integer value
+                                            return LineTooltipItem(
+                                              '$value', // Display the integer value
+                                              textStyle,
+                                            );
+                                          }).toList();
+                                        },
+                                      ),
+                                    ),
+                                    borderData: FlBorderData(
+                                      show: true,
+                                      border: Border.all(color: Colors.red),
+                                    ),
+                                    minX: 0,
+                                    maxX: taskData.length.toDouble() - 1,
+                                    minY: 0,
+                                    maxY: taskData
+                                            .map((data) => data.taskCount)
+                                            .reduce((a, b) => a > b ? a : b)
+                                            .toDouble() +
+                                        5,
+                                    lineBarsData: [
+                                      LineChartBarData(
+                                        spots: taskData.map((data) {
+                                          // Map taskData to FlSpot for the chart
+                                          return FlSpot(
+                                              taskData.indexOf(data).toDouble(),
+                                              data.taskCount.toDouble());
+                                        }).toList(),
+                                        isCurved: true,
+                                        color: Colors.blue,
+                                        barWidth: 4,
+                                        isStrokeCapRound: true,
+                                        belowBarData: BarAreaData(show: false),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ),
+                      const SizedBox(
+                        height: 100,
+                        width: 100,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: SizedBox(
+                          width: 1000,
+                          child: TopTenTasks(tasks: tasks),
+                        ),
+                      )
+                    ],
                   );
                 }
               }),
-
-          // Task Execution and frequency and Details
-          const Row()
         ]),
       ]),
     );
