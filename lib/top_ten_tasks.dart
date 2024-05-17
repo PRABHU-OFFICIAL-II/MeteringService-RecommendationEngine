@@ -17,7 +17,7 @@ class _TopTenTasksState extends State<TopTenTasks> {
   Widget build(BuildContext context) {
     Map<String, double> data = {};
     for (var task in widget.tasks) {
-      String taskName = task.taskName;
+      String taskName = "${task.taskName} [${task.projectName}]";
       double duration =
           task.endTime.difference(task.startTime).inSeconds.toDouble();
       if (data.containsKey(taskName)) {
@@ -42,29 +42,16 @@ class _TopTenTasksState extends State<TopTenTasks> {
       pieChartData[entry.key] = entry.value;
     }
 
-    return GestureDetector(
-      onTapDown: (TapDownDetails details) {
-        // Calculate the tapped index based on the angle
-        double tappedAngle = (details.localPosition.dx -
-                (MediaQuery.of(context).size.width / 2.7)) /
-            (MediaQuery.of(context).size.width / 2.7);
-        if (tappedAngle >= -1 && tappedAngle <= 1) {
-          selectedTaskIndex =
-              ((tappedAngle + 1) / (2 / sortedTasks.length)).floor();
-          setState(() {});
-        }
-      },
-      child: PieChart(
-        dataMap: pieChartData,
-        animationDuration: const Duration(milliseconds: 800),
-        chartLegendSpacing: 32,
-        chartRadius: MediaQuery.of(context).size.width / 2.7,
-        chartValuesOptions: const ChartValuesOptions(
-          showChartValuesInPercentage: true,
-          showChartValuesOutside: true,
-        ),
-        chartType: ChartType.ring,
+    return PieChart(
+      dataMap: pieChartData,
+      animationDuration: const Duration(milliseconds: 800),
+      chartLegendSpacing: 32,
+      chartRadius: MediaQuery.of(context).size.width / 2.7,
+      chartValuesOptions: const ChartValuesOptions(
+        showChartValuesInPercentage: true,
+        showChartValuesOutside: true,
       ),
+      chartType: ChartType.ring,
     );
   }
 }
@@ -74,20 +61,21 @@ class Task {
   final DateTime startTime;
   final DateTime endTime;
   final String taskName;
+  final String projectName;
 
-  Task({
-    required this.taskId,
-    required this.startTime,
-    required this.endTime,
-    required this.taskName,
-  });
+  Task(
+      {required this.taskId,
+      required this.startTime,
+      required this.endTime,
+      required this.taskName,
+      required this.projectName});
 
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
-      taskId: json['Task Run ID'],
-      startTime: DateTime.parse(json['Start Time']),
-      endTime: DateTime.parse(json['End Time']),
-      taskName: json['Task Name'],
-    );
+        taskId: json['Task Run ID'],
+        startTime: DateTime.parse(json['Start Time']),
+        endTime: DateTime.parse(json['End Time']),
+        taskName: json['Task Name'],
+        projectName: json['Project Name']);
   }
 }

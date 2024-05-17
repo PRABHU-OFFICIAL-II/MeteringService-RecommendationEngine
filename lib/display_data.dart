@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
+import 'package:recommendation_engine_ipu/recommendation_screen.dart';
 import 'package:recommendation_engine_ipu/top_ten_tasks.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 
 class DisplayData extends StatefulWidget {
   const DisplayData({super.key});
@@ -22,6 +24,7 @@ class _DisplayDataState extends State<DisplayData>
     with SingleTickerProviderStateMixin {
   late List<TaskData> taskData;
   late Map<String, dynamic> orgData = {};
+  final gemini = Gemini.instance;
 
   Future<Map<String, dynamic>> fetchData() async {
     final response = await http.get(Uri.parse(
@@ -68,14 +71,23 @@ class _DisplayDataState extends State<DisplayData>
         Column(children: [
           // Map Data Parser and Widget Builder
           FutureBuilder<Map<String, dynamic>>(
-              future: fetchData(),
+              future: Future.delayed(
+                const Duration(seconds: 2),
+                () => fetchData(),
+              ),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Center(child: CircularProgressIndicator()),
+                  );
                 } else if (snapshot.hasError) {
                   return Column(children: [
-                    const Center(child: CircularProgressIndicator()),
-                    Text("Error: ${snapshot.error}")
+                    const Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                    Text("Error : ${snapshot.error}")
                   ]);
                 } else {
                   orgId = snapshot.data!["Org ID"];
@@ -244,9 +256,18 @@ class _DisplayDataState extends State<DisplayData>
                       ),
                       Expanded(
                         flex: 1,
-                        child: SizedBox(
-                          width: 1000,
-                          child: TopTenTasks(tasks: tasks),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: 1000,
+                              child: TopTenTasks(tasks: tasks),
+                            ),
+                            const SizedBox(
+                              height: 200,
+                              width: double.maxFinite,
+                              child: RecommendationScreen(),
+                            )
+                          ],
                         ),
                       )
                     ],
