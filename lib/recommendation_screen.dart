@@ -3,18 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class RecommendationScreen extends StatefulWidget {
   const RecommendationScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _RecommendationScreenState createState() => _RecommendationScreenState();
 }
 
 class _RecommendationScreenState extends State<RecommendationScreen> {
   String recommendation = '';
+  String displayedText = '';
   late bool loading = false;
+  Timer? _timer;
+  int _currentIndex = 0;
 
   Future<Map<String, dynamic>> fetchData() async {
     final response = await http.get(Uri.parse(
@@ -30,6 +33,9 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
   Future<void> generateIPURecommendation(Map<String, dynamic> tasks) async {
     setState(() {
       loading = true;
+      displayedText = '';
+      _currentIndex = 0;
+      _timer?.cancel();
     });
     try {
       final gemini = Gemini.instance;
@@ -38,20 +44,46 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
       final value = await gemini.text(prompt);
       setState(() {
         recommendation = value?.output ?? 'No recommendation available';
+        loading = false;
       });
+      _startTextAnimation();
     } catch (e) {
       setState(() {
         recommendation = 'Error: $e';
-      });
-    } finally {
-      setState(() {
         loading = false;
       });
     }
   }
 
+  void _startTextAnimation() {
+    _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
+      if (_currentIndex < recommendation.length) {
+        setState(() {
+          displayedText += recommendation[_currentIndex];
+          _currentIndex++;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
   String _generatePrompt(Map<String, dynamic> tasks) {
-    return "Answer me in 5 lines, Which task has consumed the most IPU, what type of task it is, Whose task it is, What is the total current consumption of IPU in the Org and What might be the expected IPU consumption of the org in the next month get an average value for that: $tasks";
+    double maxVal = 0;
+    String taskName = "";
+    String projectName = "";
+    String taskType = "";
+    double totalIPUConsumed = 0;
+    for (Map<String, dynamic> task in tasks.values) {
+      if (task["Metered Value"] > maxVal) {
+        maxVal = task["Metered Value"];
+        taskName = task["Task Name"];
+        projectName = task["Project Name"];
+        taskType = task["Task Type"];
+      }
+      totalIPUConsumed += task["IPU Consumed"];
+    }
+    return "Here IPU means Informatica Processing Unit. Answer in a small paragraph: Task Specific Details - The task that consumed the most IPU: $taskName, The type of task: $taskType, It belongs to the project: $projectName. Org Specific Details - The total IPU consumption for the org in the next month is expected to be between x and y, where x and y are some values close to $totalIPUConsumed, based on the assumption that the IPU consumption pattern remains consistent.";
   }
 
   Future<void> fetchRecommendation() async {
@@ -61,6 +93,12 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
     } catch (e) {
       print('Error: $e');
     }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -80,18 +118,15 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
             const SizedBox(height: 20),
             loading
                 ? const CircularProgressIndicator()
-                : Expanded(
-                    child: SingleChildScrollView(
-                      child: Card(
-                        elevation: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            recommendation,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
+                : Flexible(
+                    child: Card(
+                      elevation: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: MarkdownBody(
+                          data: displayedText,
+                          styleSheet: MarkdownStyleSheet(
+                            p: const TextStyle(fontSize: 16),
                           ),
                         ),
                       ),

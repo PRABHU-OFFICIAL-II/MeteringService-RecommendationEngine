@@ -260,10 +260,20 @@ class _DisplayDataState extends State<DisplayData>
                           children: [
                             SizedBox(
                               width: 1000,
-                              child: TopTenTasks(tasks: tasks),
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    "Most Time Consuming Jobs",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  TopTenTasks(tasks: tasks),
+                                ],
+                              ),
                             ),
                             const SizedBox(
-                              height: 200,
+                              height: 300,
                               width: double.maxFinite,
                               child: RecommendationScreen(),
                             )
