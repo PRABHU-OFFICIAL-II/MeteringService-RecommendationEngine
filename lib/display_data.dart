@@ -27,8 +27,15 @@ class _DisplayDataState extends State<DisplayData>
   final gemini = Gemini.instance;
 
   Future<Map<String, dynamic>> fetchData() async {
-    final response = await http.get(Uri.parse(
-        'http://127.0.0.1:5000/masterEngine')); // Replace with your API endpoint
+    Map<String, String> getHeaders = {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
+    final response = await http.get(
+        Uri.parse('http://127.0.0.1:5000/masterEngine'),
+        headers: getHeaders);
+
     if (response.statusCode == 200) {
       final Map<String, dynamic> organizations = json.decode(response.body);
       //print(organizations);
@@ -268,7 +275,9 @@ class _DisplayDataState extends State<DisplayData>
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20),
                                   ),
-                                  TopTenTasks(tasks: tasks),
+                                  SizedBox(
+                                      height: 260,
+                                      child: TopTenTasks(tasks: tasks)),
                                 ],
                               ),
                             ),
