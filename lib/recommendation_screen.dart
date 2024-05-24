@@ -83,7 +83,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
       }
       totalIPUConsumed += task["IPU Consumed"];
     }
-    return "Here IPU means Informatica Processing Unit. Answer in a small paragraph: Task Specific Details - The task that consumed the most IPU: $taskName, The type of task: $taskType, It belongs to the project: $projectName. Org Specific Details - The total IPU consumption for the org in the next month is expected to be between x and y, where x and y are some values close to $totalIPUConsumed, based on the assumption that the IPU consumption pattern remains consistent.";
+    return "Here IPU means Informatica Processing Unit. Answer in a small paragraph of perfectly 5 lines : Task Specific Details - The task that consumed the most IPU: $taskName, The type of task: $taskType, It belongs to the project: $projectName. Org Specific Details - The total IPU consumption for the org in the next month is expected to be between x and y, where x and y are some values close to $totalIPUConsumed, based on the assumption that the IPU consumption pattern remains consistent.";
   }
 
   Future<void> fetchRecommendation() async {
