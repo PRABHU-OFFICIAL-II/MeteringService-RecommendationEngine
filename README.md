@@ -6,6 +6,7 @@ This project is a machine learning system designed to predict and recommend the 
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Data Description](#data-description)
@@ -26,6 +27,17 @@ The Metered Usage Recommendation System aims to help organizations predict their
 - **Model Training**: Utilizes Random Forest Regressor to train on historical data.
 - **Prediction**: Predicts the next month's metered usage for an organization.
 - **Evaluation**: Evaluates the model performance using MAE and RMSE.
+
+### Create a `requirements.txt` file
+
+Ensure you have a `requirements.txt` file in your repository to list the necessary dependencies. Here's an example:
+
+```txt
+pandas
+numpy
+scikit-learn
+matplotlib
+```
 
 ## Installation
 
