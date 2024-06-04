@@ -71,12 +71,12 @@ matplotlib
     ```python
     python main.py
     ```
-    It will open a channel and create a server in the Flask, from which we can access the
+4. It will open a channel and create a server in the Flask, from which we can access the
    ```txt
     /masterEngine -> To access the JSON data {Org and Task Specific}
     /recommendationEngine -> To access the predicted next month value
    ```
-   Flash Server will be running on the localhost:5000 or 127.0.0.1:5000
+5. Flash Server will be running on the localhost:5000 or 127.0.0.1:5000
    ```python
    127.0.0.1:5000/masterEngine
    127.0.0.1:5000/recommendationEngine
