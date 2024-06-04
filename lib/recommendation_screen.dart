@@ -20,8 +20,8 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
   int _currentIndex = 0;
 
   Future<Map<String, dynamic>> fetchData() async {
-    final response = await http.get(Uri.parse(
-        'http://127.0.0.1:5000/masterEngine')); // Replace with your API endpoint
+    final response =
+        await http.get(Uri.parse('http://127.0.0.1:5000/masterEngine'));
     if (response.statusCode == 200) {
       final Map<String, dynamic> organizations = json.decode(response.body);
       return organizations;
@@ -30,7 +30,20 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
     }
   }
 
-  Future<void> generateIPURecommendation(Map<String, dynamic> tasks) async {
+  Future<List<dynamic>> getRecommendedData() async {
+    final response = await http.get(Uri.parse(
+        'http://127.0.0.1:5000/recommendationEngine')); // Replace with your API endpoint
+    if (response.statusCode == 200) {
+      List<dynamic> prediction = json.decode(response.body);
+      print(prediction);
+      return prediction;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  Future<void> generateIPURecommendation(
+      Map<String, dynamic> tasks, List<dynamic> result) async {
     setState(() {
       loading = true;
       displayedText = '';
@@ -39,7 +52,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
     });
     try {
       final gemini = Gemini.instance;
-      final prompt = _generatePrompt(tasks);
+      final prompt = _generatePrompt(tasks, result);
 
       final value = await gemini.text(prompt);
       setState(() {
@@ -68,12 +81,11 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
     });
   }
 
-  String _generatePrompt(Map<String, dynamic> tasks) {
+  String _generatePrompt(Map<String, dynamic> tasks, List<dynamic> result) {
     double maxVal = 0;
     String taskName = "";
     String projectName = "";
     String taskType = "";
-    double totalIPUConsumed = 0;
     for (Map<String, dynamic> task in tasks.values) {
       if (task["Metered Value"] > maxVal) {
         maxVal = task["Metered Value"];
@@ -81,15 +93,15 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
         projectName = task["Project Name"];
         taskType = task["Task Type"];
       }
-      totalIPUConsumed += task["IPU Consumed"];
     }
-    return "Here IPU means Informatica Processing Unit. Answer in a small paragraph of perfectly 5 lines : Task Specific Details - The task that consumed the most IPU: $taskName, The type of task: $taskType, It belongs to the project: $projectName. Org Specific Details - The total IPU consumption for the org in the next month is expected to be between x and y, where x and y are some values close to $totalIPUConsumed, based on the assumption that the IPU consumption pattern remains consistent.";
+    return "Here IPU means Informatica Processing Unit. Answer in an impressive 5 lines in the format : Hyy buddy, The task that consumed the most IPU: $taskName, The type of task: $taskType, It belongs to the project: $projectName. According to the way Prabhu trained me the total IPU consumption for the org in the next month is expected to be around ${result[0] * 10}, based on the assumption that the IPU consumption pattern remains consistent.";
   }
 
   Future<void> fetchRecommendation() async {
     try {
       final tasks = await fetchData();
-      generateIPURecommendation(tasks['Tasks']);
+      final result = await getRecommendedData();
+      generateIPURecommendation(tasks['Tasks'], result);
     } catch (e) {
       print('Error: $e');
     }
