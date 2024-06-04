@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:recommendation_engine_ipu/display_data.dart';
+import 'package:recommendation_engine_ipu/login.dart';
 // import 'package:recommendation_engine_ipu/recommendation_screen.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Scaffold(body: DisplayData()),
+      home: const Scaffold(body: LoginPage()),
       // body: UploadReportScreen(),
     );
   }
