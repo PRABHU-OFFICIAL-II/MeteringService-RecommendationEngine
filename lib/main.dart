@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:recommendation_engine_ipu/display_data.dart';
-import 'package:recommendation_engine_ipu/login.dart';
-// import 'package:recommendation_engine_ipu/recommendation_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:recommendation_engine_ipu/recommendation_screen.dart';
 
-void main() {
-  Gemini.init(apiKey: 'AIzaSyBeqN6UNeJxjSFt6yI56QQH8SdCxSSE0_c');
+Future main() async {
+  await dotenv.load(fileName: "api_key.env");
+  Gemini.init(apiKey: dotenv.env["API_KEY"] ?? "");
   runApp(const MyApp());
 }
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Scaffold(body: LoginPage()),
+      home: const Scaffold(body: RecommendationScreen()),
       // body: UploadReportScreen(),
     );
   }
