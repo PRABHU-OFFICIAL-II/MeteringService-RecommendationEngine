@@ -6,6 +6,7 @@ This project is a machine learning system designed to predict and recommend the 
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Data Description](#data-description)
@@ -26,6 +27,17 @@ The Metered Usage Recommendation System aims to help organizations predict their
 - **Model Training**: Utilizes Random Forest Regressor to train on historical data.
 - **Prediction**: Predicts the next month's metered usage for an organization.
 - **Evaluation**: Evaluates the model performance using MAE and RMSE.
+
+## Requirements
+
+Ensure you have a `requirements.txt` file in your repository to list the necessary dependencies. Here's an example:
+
+```txt
+pandas
+numpy
+scikit-learn
+matplotlib
+```
 
 ## Installation
 
@@ -57,8 +69,18 @@ The Metered Usage Recommendation System aims to help organizations predict their
 
 3. Run the script to preprocess data, train the model, and make predictions:
     ```python
-    python metered_usage_recommendation.py
+    python main.py
     ```
+4. It will open a channel and create a server in the Flask, from which we can access the
+   ```txt
+    /masterEngine -> To access the JSON data {Org and Task Specific}
+    /recommendationEngine -> To access the predicted next month value
+   ```
+5. Flash Server will be running on the localhost:5000 or 127.0.0.1:5000
+   ```python
+   127.0.0.1:5000/masterEngine
+   127.0.0.1:5000/recommendationEngine
+   ```
 
 ## Data Description
 
