@@ -28,7 +28,7 @@ The Metered Usage Recommendation System aims to help organizations predict their
 - **Prediction**: Predicts the next month's metered usage for an organization.
 - **Evaluation**: Evaluates the model performance using MAE and RMSE.
 
-### Create a `requirements.txt` file
+## Requirements
 
 Ensure you have a `requirements.txt` file in your repository to list the necessary dependencies. Here's an example:
 
