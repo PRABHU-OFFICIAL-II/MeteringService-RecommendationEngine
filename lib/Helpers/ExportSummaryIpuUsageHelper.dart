@@ -129,7 +129,7 @@ class ExportSummaryIpuUsageHelper
 
   static  Future<void> saveApiResponseAsZip(User currentSession, JobResponse jobResponse) async {
       // Replace with your API endpoint
-      String apiUrl = currentSession.serverUrl.toString()+"/"+Constants.Check_Job_Status+jobResponse.jobId+"download";
+      String apiUrl = currentSession.serverUrl.toString()+"/"+Constants.Check_Job_Status+jobResponse.jobId+"/download";
 
       print("Download url : "+apiUrl);
 
