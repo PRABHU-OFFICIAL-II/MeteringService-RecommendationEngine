@@ -20,9 +20,12 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
   int _currentIndex = 0;
 
   Future<Map<String, dynamic>> fetchData() async {
-    final response =
+    var response =
         await http.get(Uri.parse('http://127.0.0.1:5000/masterEngine'));
+
+    print(response.body);
     if (response.statusCode == 200) {
+      print("HERE ");
       final Map<String, dynamic> organizations = json.decode(response.body);
       return organizations;
     } else {
@@ -99,9 +102,14 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
 
   Future<void> fetchRecommendation() async {
     try {
+      print("HERE -1");
       final tasks = await fetchData();
+      print("HERE 1");
       final result = await getRecommendedData();
+
+      print("HERE 1");
       generateIPURecommendation(tasks['Tasks'], result);
+      print("HERE 2");
     } catch (e) {
       print('Error: $e');
     }
@@ -123,6 +131,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
           children: [
             ElevatedButton(
               onPressed: () {
+                print("BUTTON  PRESED");
                 fetchRecommendation();
               },
               child: const Text('Generate IPU Recommendation'),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:recommendation_engine_ipu/recommendation_screen.dart';
 
-Future main() async {
-  await dotenv.load(fileName: "api_key.env");
-  Gemini.init(apiKey: dotenv.env["API_KEY"] ?? "");
+void main() {
+  // await dotenv.load(fileName: "api_key.env");
+  Gemini.init(apiKey: 'AIzaSyBeqN6UNeJxjSFt6yI56QQH8SdCxSSE0_c');
   runApp(const MyApp());
 }
 
