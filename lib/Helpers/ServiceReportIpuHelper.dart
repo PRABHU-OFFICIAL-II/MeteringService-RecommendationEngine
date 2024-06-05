@@ -122,6 +122,8 @@ class ServiceRepportIpuHelper
 
   static  Future<void> saveApiResponseAsZipWeb(User currentSession, JobResponse jobResponse) async {
 
+    Directory currentDir = Directory.current;
+
     print("Inside SaveAPIResponseAsZip  WEB");
     print(jobResponse);
     String apiUrl = currentSession.serverUrl.toString()+"/"+Constants.Check_Job_Status+jobResponse.jobId+"/download";
@@ -151,12 +153,12 @@ class ServiceRepportIpuHelper
       final url = html.Url.createObjectUrlFromBlob(blob);
       final anchor = html.AnchorElement(href: url)
         ..target = 'web-save-zip'
-        ..download = 'example.zip';
+        ..download ='/example.zip';
       html.document.body!.children.add(anchor);
       anchor.click();
       html.Url.revokeObjectUrl(url);
       html.document.body!.children.remove(anchor);
-      print("FILE SAVED ");
+      print("FILE SAVED");
     } else {
       // Handle error
       print('Failed to download the zip file. Status code: ${response.statusCode}');
