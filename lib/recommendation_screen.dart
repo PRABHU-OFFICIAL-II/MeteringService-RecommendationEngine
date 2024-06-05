@@ -25,7 +25,6 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
 
     print(response.body);
     if (response.statusCode == 200) {
-      print("HERE ");
       final Map<String, dynamic> organizations = json.decode(response.body);
       return organizations;
     } else {
@@ -102,14 +101,11 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
 
   Future<void> fetchRecommendation() async {
     try {
-      print("HERE -1");
       final tasks = await fetchData();
-      print("HERE 1");
+
       final result = await getRecommendedData();
 
-      print("HERE 1");
       generateIPURecommendation(tasks['Tasks'], result);
-      print("HERE 2");
     } catch (e) {
       print('Error: $e');
     }
@@ -131,7 +127,6 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
           children: [
             ElevatedButton(
               onPressed: () {
-                print("BUTTON  PRESED");
                 fetchRecommendation();
               },
               child: const Text('Generate IPU Recommendation'),
