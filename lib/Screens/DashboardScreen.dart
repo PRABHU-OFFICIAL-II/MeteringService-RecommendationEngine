@@ -15,7 +15,6 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
-
   IPUREPRORTVIEW ipureprortview = IPUREPRORTVIEW.NOTHING;
   @override
   Widget build(BuildContext context) {
@@ -41,14 +40,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   foregroundColor: Colors.orangeAccent,
                   backgroundColor: Colors.blueGrey),
               onPressed: () {
-
                 ipureprortview = IPUREPRORTVIEW.EXPORT_SUMMARY_IPU_USAGE;
                 print("CLICKED EXPORT SUMMARY USAGE");
-                setState(() {
-
-
-
-                });
+                setState(() {});
               },
               child: Text("Export Summary IPU Usage"),
             ),
@@ -58,30 +52,27 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   foregroundColor: Colors.orangeAccent,
                   backgroundColor: Colors.blueGrey),
               onPressed: () {
-                ipureprortview = IPUREPRORTVIEW.EXPORT_JOB_LEVEL_IPU_USAGE_FOR_PARTICULAR_SERVICE;
+                ipureprortview = IPUREPRORTVIEW
+                    .EXPORT_JOB_LEVEL_IPU_USAGE_FOR_PARTICULAR_SERVICE;
 
                 ServiceRepportIpuHelper.invokeJob(widget.currentUser);
-                setState(() {
-
-                });
-
+                setState(() {});
               },
               child:
-              Text("Export Job Level IPU Usage for a Particular Service"),
+                  Text("Export Job Level IPU Usage for a Particular Service"),
             ),
             Spacer(),
-
-
-
           ],
         ),
-        ipureprortview ==  IPUREPRORTVIEW.EXPORT_JOB_LEVEL_IPU_USAGE_FOR_PARTICULAR_SERVICE ? Container():
-        ipureprortview == IPUREPRORTVIEW.EXPORT_SUMMARY_IPU_USAGE ? ExportSummaryIPUUsage(currentSessiion: widget.currentUser,):Container()
-
+        ipureprortview ==
+                IPUREPRORTVIEW.EXPORT_JOB_LEVEL_IPU_USAGE_FOR_PARTICULAR_SERVICE
+            ? Container()
+            : ipureprortview == IPUREPRORTVIEW.EXPORT_SUMMARY_IPU_USAGE
+                ? ExportSummaryIPUUsage(
+                    currentSessiion: widget.currentUser,
+                  )
+                : Container()
       ]),
     );
   }
-
-
-
 }

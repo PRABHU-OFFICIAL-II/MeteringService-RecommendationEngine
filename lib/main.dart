@@ -23,7 +23,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const Scaffold(body: RecommendationScreen()),
-      home: Scaffold(body: LoginScreen(),),
+      home: const Scaffold(
+        body: LoginScreen(),
+      ),
       // body: UploadReportScreen(),
     );
   }
