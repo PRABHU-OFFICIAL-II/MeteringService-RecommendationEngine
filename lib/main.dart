@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:recommendation_engine_ipu/Screens/LoginScreen.dart';
+import 'package:recommendation_engine_ipu/login.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:recommendation_engine_ipu/recommendation_screen.dart';
 
 void main() {
   // await dotenv.load(fileName: "api_key.env");
@@ -24,9 +23,8 @@ class MyApp extends StatelessWidget {
       ),
       // home: const Scaffold(body: RecommendationScreen()),
       home: const Scaffold(
-        body: LoginScreen(),
+        body: Login(),
       ),
-      // body: UploadReportScreen(),
     );
   }
 }

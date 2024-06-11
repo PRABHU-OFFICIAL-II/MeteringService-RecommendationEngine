@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
-import 'package:recommendation_engine_ipu/display_data.dart';
+import 'package:recommendation_engine_ipu/data/display_data.dart';
 
 class UploadReportScreen extends StatefulWidget {
   const UploadReportScreen({super.key});

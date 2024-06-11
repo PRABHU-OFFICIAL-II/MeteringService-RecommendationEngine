@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
-import 'package:recommendation_engine_ipu/recommendation_screen.dart';
-import 'package:recommendation_engine_ipu/top_ten_tasks.dart';
+import 'package:recommendation_engine_ipu/models/recommendation_screen.dart';
+import 'package:recommendation_engine_ipu/data/top_ten_tasks.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
 class DisplayData extends StatefulWidget {
