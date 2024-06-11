@@ -66,7 +66,7 @@ class _DisplayDataState extends State<DisplayData>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Underdeveloped Application'),
+        // title: const Text('Underdeveloped Application'),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),

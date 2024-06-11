@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 @app.route('/masterEngine')
 def masterEngine():
-    data = pd.read_csv('./resources/CDIMeteringAuditData.csv')
+    data = pd.read_csv('resources/CDIMeteringAuditData.csv')
     attributes_to_drop = ['Task Object Name', 'Audit Time', 'OBM Task Time(s)']
     data_cleaned = data.drop(columns=attributes_to_drop)
     print(data_cleaned)

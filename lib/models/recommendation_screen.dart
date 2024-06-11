@@ -96,7 +96,10 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
         taskType = task["Task Type"];
       }
     }
-    return "Here IPU means Informatica Processing Unit. Answer in an impressive 5 lines in the format : Hyy buddy, The task that consumed the most IPU: $taskName, The type of task: $taskType, It belongs to the project: $projectName. According to the way Prabhu trained me the total IPU consumption for the org in the next month is expected to be around ${result[0] * 10}, based on the assumption that the IPU consumption pattern remains consistent.";
+    double taskMin = (result[0] * 0.025);
+    double taskMax = (result[0] * 0.16);
+
+    return "Here IPU means Informatica Processing Unit. Answer in an impressive 5 lines in the format : Hyy buddy, The task that consumed the most IPU is **$taskName, The type of task is **$taskType, It belongs to the project **$projectName. According to the way I am trained, the total IPU consumption for the org in the next month is expected to be between **$taskMin, and **$taskMax, based on the assumption that the IPU consumption pattern remains consistent.";
   }
 
   Future<void> fetchRecommendation() async {

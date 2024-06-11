@@ -3,6 +3,8 @@
 import 'dart:convert';
 // import 'dart:html' as html; // Web-specific import for downloading files
 import 'dart:io';
+import 'package:archive/archive.dart';
+import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:recommendation_engine_ipu/data/display_data.dart';
@@ -124,6 +126,43 @@ class _LoginState extends State<Login> {
         });
   }
 
+  Future<void> unzipFile(String zipFilePath) async {
+    final file = File(zipFilePath);
+    final bytes = await file.readAsBytes();
+
+    final archive = ZipDecoder().decodeBytes(bytes);
+
+    for (final file in archive) {
+      final fileName = file.name;
+      final filePath = path.join(path.dirname(zipFilePath), fileName);
+
+      if (file.isFile) {
+        final data = file.content as List<int>;
+        final outFile = File(filePath);
+        await outFile.create(recursive: true);
+        await outFile.writeAsBytes(data);
+      } else {
+        final dir = Directory(filePath);
+        await dir.create(recursive: true);
+      }
+    }
+  }
+
+  Future<void> startMasterEngine() async {
+    Process process = await Process.start('python', ['lib/models/main.py']);
+    process.stdout.transform(utf8.decoder).listen((data) {
+      print('Python stdout: $data');
+      if (data.contains('Serving Flask app')) {
+        showProgressDialog('assets/exportData.png', 'Master Engine Started');
+      }
+    });
+
+    // Listen for any errors from the Python process
+    process.stderr.transform(utf8.decoder).listen((data) {
+      print('Python stderr: $data');
+    });
+  }
+
   Future<void> downloadExportData(
       String serverUrl, String icSessionId, String jobId) async {
     final url =
@@ -149,6 +188,19 @@ class _LoginState extends State<Login> {
             'assets/exportData.png', 'Export data downloaded successfully');
         await Future.delayed(const Duration(seconds: 2));
         Navigator.of(context).pop();
+        unzipFile('resources/export_data.zip');
+        showProgressDialog(
+            'assets/exportData.png', 'Content Extraction Finished');
+        await Future.delayed(const Duration(seconds: 2));
+        Navigator.of(context).pop();
+        showProgressDialog('assets/exportData.png',
+            'Please Wait untill Master Engine Starts Up');
+        startMasterEngine();
+        await Future.delayed(const Duration(seconds: 10));
+        Navigator.of(context).pop();
+        showProgressDialog('assets/exportData.png',
+            'Master Engine Server is now Up and Running');
+        await Future.delayed(const Duration(seconds: 2));
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const DisplayData()));
       } else {
