@@ -8,7 +8,6 @@ import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:recommendation_engine_ipu/data/display_data.dart';
-import 'package:recommendation_engine_ipu/data/upload_report.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -86,7 +85,6 @@ class _LoginState extends State<Login> {
 
   Future<void> showProgressDialog(String assetPath, String message) async {
     return showDialog(
-      context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return StatefulBuilder(
@@ -107,6 +105,7 @@ class _LoginState extends State<Login> {
           },
         );
       },
+      context: context,
     );
   }
 
@@ -152,9 +151,8 @@ class _LoginState extends State<Login> {
   Future<void> startMasterEngine() async {
     Process process = await Process.start('python', ['lib/models/main.py']);
     process.stdout.transform(utf8.decoder).listen((data) {
-      print('Python stdout: $data');
       if (data.contains('Serving Flask app')) {
-        showProgressDialog('assets/exportData.png', 'Master Engine Started');
+        print("Master Engine Started");
       }
     });
 
@@ -194,13 +192,13 @@ class _LoginState extends State<Login> {
             'assets/exportData.png', 'Content Extraction Finished');
         await Future.delayed(const Duration(seconds: 2));
         Navigator.of(context).pop();
-        showProgressDialog('assets/exportData.png',
-            'Please Wait untill Master Engine Starts Up');
         startMasterEngine();
+        showProgressDialog(
+            'assets/exportData.png', 'Master Engine Starting Up');
         await Future.delayed(const Duration(seconds: 10));
         Navigator.of(context).pop();
-        showProgressDialog('assets/exportData.png',
-            'Master Engine Server is now Up and Running');
+        showProgressDialog(
+            'assets/exportData.png', 'Master Engine is Up and Running');
         await Future.delayed(const Duration(seconds: 2));
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const DisplayData()));
