@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:recommendation_engine_ipu/login.dart';
+import 'package:recommendation_engine_ipu/screens/login.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() {
