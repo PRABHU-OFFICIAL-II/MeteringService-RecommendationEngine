@@ -5,6 +5,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:recommendation_engine_ipu/models/recommendation_screen.dart';
 import 'package:recommendation_engine_ipu/data/top_ten_tasks.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:recommendation_engine_ipu/querry_model/chat_screen.dart';
+import 'package:recommendation_engine_ipu/querry_model/chat_service.dart';
 
 class DisplayData extends StatefulWidget {
   const DisplayData({super.key});
@@ -318,11 +320,19 @@ class _DisplayDataState extends State<DisplayData>
                             ),
                           ),
                           const Center(
-                            child: Text("Querry Engine",
+                            child: Text("CDI BUDDY",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.amber,
                                     fontSize: 20)),
+                          ),
+                          SizedBox(
+                            height: 600,
+                            width: 700,
+                            child: ChatScreen(
+                              chatService: ChatService(
+                                  'AIzaSyBeqN6UNeJxjSFt6yI56QQH8SdCxSSE0_c'),
+                            ),
                           ),
                         ],
                       ),
