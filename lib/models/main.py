@@ -127,7 +127,6 @@ def recommendationEngine():
     # Group data by Org ID and Month to aggregate metered usage
     monthly_usage = data.groupby(['Org ID', 'Year', 'Month']).agg({
         'Metered Value': 'sum',
-        'Cores Used': 'mean',  # Example of additional features
         'Duration': 'mean'
     }).reset_index()
 

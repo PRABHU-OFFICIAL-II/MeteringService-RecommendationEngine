@@ -157,9 +157,9 @@ class _LoginState extends State<Login> {
     });
 
     // Listen for any errors from the Python process
-    process.stderr.transform(utf8.decoder).listen((data) {
-      print('Python stderr: $data');
-    });
+    // process.stderr.transform(utf8.decoder).listen((data) {
+    //   print('Python stderr: $data');
+    // });
   }
 
   Future<void> downloadExportData(
@@ -189,16 +189,16 @@ class _LoginState extends State<Login> {
         Navigator.of(context).pop();
         unzipFile('resources/export_data.zip');
         showProgressDialog(
-            'assets/exportData.png', 'Content Extraction Finished');
+            'assets/contentExtraction.png', 'Content Extraction Finished');
         await Future.delayed(const Duration(seconds: 2));
         Navigator.of(context).pop();
         startMasterEngine();
         showProgressDialog(
-            'assets/exportData.png', 'Master Engine Starting Up');
+            'assets/masterEngine.png', 'Master Engine Starting Up');
         await Future.delayed(const Duration(seconds: 10));
         Navigator.of(context).pop();
         showProgressDialog(
-            'assets/exportData.png', 'Master Engine is Up and Running');
+            'assets/masterEngine.png', 'Master Engine is Up and Running');
         await Future.delayed(const Duration(seconds: 2));
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const DisplayData()));

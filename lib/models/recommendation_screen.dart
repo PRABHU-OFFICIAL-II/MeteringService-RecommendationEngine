@@ -88,6 +88,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
     String taskName = "";
     String projectName = "";
     String taskType = "";
+    double checkMeteredVal = 0;
     for (Map<String, dynamic> task in tasks.values) {
       if (task["Metered Value"] > maxVal) {
         maxVal = task["Metered Value"];
@@ -96,10 +97,20 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
         taskType = task["Task Type"];
       }
     }
-    double taskMin = (result[0] * 0.025);
-    double taskMax = (result[0] * 0.16);
+    int count = 0;
+    for (Map<String, dynamic> task in tasks.values) {
+      if (count < 25) {
+        checkMeteredVal += task["Metered Value"];
+      }
+      count++;
+    }
+    // double taskMin = (result[0] * 0.025);
+    // double taskMax = (result[0] * 0.16);
+    print(checkMeteredVal);
 
-    return "Here IPU means Informatica Processing Unit. Answer in an impressive 5 lines in the format : Hyy buddy, The task that consumed the most IPU is **$taskName, The type of task is **$taskType, It belongs to the project **$projectName. According to the way I am trained, the total IPU consumption for the org in the next month is expected to be between **$taskMin, and **$taskMax, based on the assumption that the IPU consumption pattern remains consistent.";
+    return "Here IPU means Informatica Processing Unit, answer in this format -> Hyy buddy, The task that consumed the most IPU is **$taskName, The type of task is **$taskType, It belongs to the project **$projectName. According to the way I am trained, the possible Metered Usage for the org in the next month is expected to be in the range **${result[0]}, based on the assumption that the IPU consumption pattern remains consistent.";
+
+    // return "Here IPU means Informatica Processing Unit. Just answer in the format I will give and nothing more than that, also analyze the data from $org, and show the analysis at the time when I call the Metered usage for the next month is, ok and the Format is -> Hyy buddy, The task that consumed the most IPU is **$taskName, The type of task is **$taskType, It belongs to the project **$projectName. According to the way I am trained, the possible Metered Usage for the org in the next month is expected to be show the expected value you analyzed from the org data I provided, based on the assumption that the IPU consumption pattern remains consistent.";
   }
 
   Future<void> fetchRecommendation() async {
