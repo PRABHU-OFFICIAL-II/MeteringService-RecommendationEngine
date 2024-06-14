@@ -40,8 +40,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return SizedBox(
+      height: 600,
+      child: Column(
         children: [
           const Padding(
             padding: EdgeInsets.all(10),
