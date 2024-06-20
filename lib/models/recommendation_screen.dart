@@ -18,6 +18,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
   late bool loading = false;
   Timer? _timer;
   int _currentIndex = 0;
+  bool _isButtonDisabled = false;
 
   Future<Map<String, dynamic>> fetchData() async {
     var response =
@@ -125,6 +126,22 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
     }
   }
 
+  void buttonHandler() {
+    setState(() {
+      _isButtonDisabled = true;
+    });
+
+    if (_isButtonDisabled) {
+      fetchRecommendation();
+    }
+
+    // Timer(const Duration(seconds: 1), () {
+    //   setState(() {
+    //     _isButtonDisabled = false;
+    //   });
+    // });
+  }
+
   @override
   void dispose() {
     _timer?.cancel();
@@ -140,9 +157,14 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {
-                fetchRecommendation();
-              },
+              onPressed: _isButtonDisabled ? null : buttonHandler,
+              // style: _isButtonDisabled
+              //     ? ButtonStyle(backgroundColor:
+              //         WidgetStateProperty.resolveWith<Color>(
+              //             (Set<WidgetState> states) {
+              //         return Colors.grey;
+              //       }))
+              //     : null,
               child: const Text('Generate IPU Recommendation'),
             ),
             const SizedBox(height: 20),

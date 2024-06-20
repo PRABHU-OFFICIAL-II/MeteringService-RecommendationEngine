@@ -7,6 +7,7 @@ import 'package:recommendation_engine_ipu/data/top_ten_tasks.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:recommendation_engine_ipu/querry_model/chat_screen.dart';
 import 'package:recommendation_engine_ipu/querry_model/chat_service.dart';
+import 'package:recommendation_engine_ipu/screens/login.dart';
 
 class DisplayData extends StatefulWidget {
   const DisplayData({super.key});
@@ -67,6 +68,19 @@ class _DisplayDataState extends State<DisplayData>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: ElevatedButton(
+          onPressed: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const Login())),
+          style: ButtonStyle(
+            elevation: WidgetStateProperty.all(0),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+              const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            ),
+          ),
+          child: const Icon(Icons.arrow_back),
+        ),
+      ),
       body: ListView(children: [
         Column(
           children: [
