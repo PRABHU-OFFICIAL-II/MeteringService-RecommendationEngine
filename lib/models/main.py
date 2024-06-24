@@ -1,5 +1,4 @@
 import datetime
-from statistics import LinearRegression
 import pandas as pd
 import json
 from flask import Flask, jsonify, render_template, url_for

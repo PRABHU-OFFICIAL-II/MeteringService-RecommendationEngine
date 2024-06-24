@@ -1,0 +1,11 @@
+Task ID,Task Name,Task Object Name,Task Type,Task Run ID,Project Name,Folder Name,Org ID,Environment ID,Environment,Start Time,End Time,Status,Metered Value,Audit Time
+000QML0Z0000000001HS,VGN_REDSH_PDOMappingTask10,null,MTT,2,vihasitha_test,,80bTjaasFejbEkQynNFnyT,1QO6mK4AcQFdVOzuNNpsEH,vg-linux-vm.informatica.com,2024-01-05 14:03:46.0,2024-01-05 15:19:53.0,ERROR,0.0,2024-01-05 16:12:46.0
+000QML0Z0000000001HS,VGN_REDSH_PDOMappingTask10,null,MTT,3,vihasitha_test,,80bTjaasFejbEkQynNFnyT,1QO6mK4AcQFdVOzuNNpsEH,vg-linux-vm.informatica.com,2024-01-09 10:49:50.0,2024-01-09 12:02:32.0,ERROR,0.0,2024-01-09 12:11:41.0
+000QML0Z0000000001HS,VGN_REDSH_PDOMappingTask10,null,MTT,4,vihasitha_test,,80bTjaasFejbEkQynNFnyT,1QO6mK4AcQFdVOzuNNpsEH,vg-linux-vm.informatica.com,2024-01-10 13:27:24.0,2024-01-10 13:45:37.0,ERROR,0.0,2024-01-10 14:11:55.0
+000QML0Z0000000001HS,VGN_REDSH_PDOMappingTask10,null,MTT,5,vihasitha_test,,80bTjaasFejbEkQynNFnyT,1QO6mK4AcQFdVOzuNNpsEH,vg-linux-vm.informatica.com,2024-01-10 13:46:35.0,2024-01-10 13:48:11.0,ERROR,0.0,2024-01-10 14:11:55.0
+000QML0Z0000000001HS,VGN_REDSH_PDOMappingTask10,null,MTT,6,vihasitha_test,,80bTjaasFejbEkQynNFnyT,1QO6mK4AcQFdVOzuNNpsEH,vg-linux-vm.informatica.com,2024-01-10 13:50:35.0,2024-01-10 13:56:02.0,ERROR,0.0,2024-01-10 14:11:55.0
+000QML0Z0000000001HS,VGN_REDSH_PDOMappingTask10,null,MTT,7,vihasitha_test,,80bTjaasFejbEkQynNFnyT,1QO6mK4AcQFdVOzuNNpsEH,vg-linux-vm.informatica.com,2024-01-10 13:58:26.0,2024-01-10 13:59:20.0,ERROR,0.0,2024-01-10 14:11:55.0
+000QML0Z0000000001HS,VGN_REDSH_PDOMappingTask10,null,MTT,8,vihasitha_test,,80bTjaasFejbEkQynNFnyT,1QO6mK4AcQFdVOzuNNpsEH,vg-linux-vm.informatica.com,2024-01-10 14:01:04.0,2024-01-10 14:02:00.0,ERROR,0.0,2024-01-10 14:11:55.0
+000QML0Z0000000001HS,VGN_REDSH_PDOMappingTask10,null,MTT,9,vihasitha_test,,80bTjaasFejbEkQynNFnyT,1QO6mK4AcQFdVOzuNNpsEH,vg-linux-vm.informatica.com,2024-01-30 09:22:59.0,2024-01-30 09:24:03.0,ERROR,0.0,2024-01-30 10:11:24.0
+000QML0Z0000000001J1,mt_PDO_IPU_Test,null,MTT,1,Ramanuja,,80bTjaasFejbEkQynNFnyT,1ICkurTdk44eFS8SCRkGQf,JJ_Windows,2024-02-27 11:19:26.0,2024-02-27 11:19:53.0,SUCCESS,6.0,2024-02-27 12:11:32.0
+000QML0Z0000000001JJ,prabhuPDOTesting,null,MTT,2,ppenthoi,,80bTjaasFejbEkQynNFnyT,0Gv5s5lKGlEgO8WUuDsX2Y,INWPF3M1V35-AAD,2024-04-10 09:09:55.0,2024-04-10 09:10:12.0,SUCCESS,26.0,2024-04-10 09:11:29.0
