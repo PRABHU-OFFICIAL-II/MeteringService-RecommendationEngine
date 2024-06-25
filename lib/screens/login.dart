@@ -8,6 +8,7 @@ import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:recommendation_engine_ipu/data/display_data.dart';
+import 'package:recommendation_engine_ipu/screens/data_fetcher.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -23,6 +24,13 @@ class _LoginState extends State<Login> {
   final TextEditingController endDateController = TextEditingController();
   String jobId = "";
   String serverUrl = "";
+
+  // Final lists of the Data for Data Refresher
+  Map<String, dynamic> refresherData = {
+    "icSessionId": "",
+    "url": "",
+    "serverUrl": "",
+  };
 
   // List of services and their corresponding meter IDs
   final Map<String, String> services = {
@@ -200,8 +208,9 @@ class _LoginState extends State<Login> {
         showProgressDialog(
             'assets/masterEngine.png', 'Master Engine is Up and Running');
         await Future.delayed(const Duration(seconds: 2));
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const DisplayData()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) =>
+                DisplayData(icSessionId: icSessionId, serverUrl: serverUrl)));
       } else {
         Navigator.of(context).pop();
         showError('Failed to download export data');
@@ -231,6 +240,9 @@ class _LoginState extends State<Login> {
       "meterId": meterId,
       "callbackUrl": "https://MyExportJobStatus.com"
     });
+
+    refresherData["serverUrl"] = serverUrl;
+    refresherData["icSessionId"] = icSessionId;
 
     try {
       final response = await http.post(url, headers: headers, body: body);
@@ -286,6 +298,8 @@ class _LoginState extends State<Login> {
       "username": username,
       "password": password,
     });
+
+    refresherData["url"] = url;
 
     try {
       showProgressDialog('assets/signUp.png', 'Logging in...');
@@ -354,7 +368,7 @@ class _LoginState extends State<Login> {
             ),
           ),
           SizedBox(
-            height: 700,
+            height: 800,
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

@@ -7,10 +7,18 @@ import 'package:recommendation_engine_ipu/data/top_ten_tasks.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:recommendation_engine_ipu/querry_model/chat_screen.dart';
 import 'package:recommendation_engine_ipu/querry_model/chat_service.dart';
+import 'package:recommendation_engine_ipu/screens/data_fetcher.dart';
 import 'package:recommendation_engine_ipu/screens/login.dart';
 
 class DisplayData extends StatefulWidget {
-  const DisplayData({super.key});
+  final String icSessionId;
+  final String serverUrl;
+
+  const DisplayData({
+    super.key,
+    required this.icSessionId,
+    required this.serverUrl,
+  });
 
   @override
   State<DisplayData> createState() => _DisplayDataState();
@@ -50,21 +58,6 @@ class _DisplayDataState extends State<DisplayData>
   }
 
   String orgId = "";
-
-  // void _dataRefresh() {
-  //   setState(() {
-  //     fetchData().then((data) {
-  //       // Handle the fetched data here
-  //       setState(() {
-  //         orgId = data["Org ID"];
-  //       });
-  //     }).catchError((error) {
-  //       // Handle any errors that occur during the API call
-  //       print('Error fetching data: $error');
-  //     });
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,10 +77,13 @@ class _DisplayDataState extends State<DisplayData>
       body: ListView(children: [
         Column(
           children: [
+            const Text(
+              "Update the dates to get the required result",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            DataFetcher(
+                icSessionId: widget.icSessionId, serverUrl: widget.serverUrl),
             Column(children: [
-              const SizedBox(
-                height: 20,
-              ),
               // Map Data Parser and Widget Builder
               FutureBuilder<Map<String, dynamic>>(
                   future: Future.delayed(
