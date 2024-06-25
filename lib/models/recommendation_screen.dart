@@ -110,8 +110,6 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
     print(checkMeteredVal);
 
     return "Here IPU means Informatica Processing Unit, answer in this format -> Hyy buddy, The task that consumed the most IPU is **$taskName, The type of task is **$taskType, It belongs to the project **$projectName. According to the way I am trained, the possible Metered Usage for the org in the next month is expected to be in the range **${result[0]}, based on the assumption that the IPU consumption pattern remains consistent.";
-
-    // return "Here IPU means Informatica Processing Unit. Just answer in the format I will give and nothing more than that, also analyze the data from $org, and show the analysis at the time when I call the Metered usage for the next month is, ok and the Format is -> Hyy buddy, The task that consumed the most IPU is **$taskName, The type of task is **$taskType, It belongs to the project **$projectName. According to the way I am trained, the possible Metered Usage for the org in the next month is expected to be show the expected value you analyzed from the org data I provided, based on the assumption that the IPU consumption pattern remains consistent.";
   }
 
   Future<void> fetchRecommendation() async {
@@ -156,15 +154,15 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              "It's recommended to select atleast more that 3 months of time for better prediction results",
+              style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic),
+            ),
             ElevatedButton(
               onPressed: _isButtonDisabled ? null : buttonHandler,
-              // style: _isButtonDisabled
-              //     ? ButtonStyle(backgroundColor:
-              //         WidgetStateProperty.resolveWith<Color>(
-              //             (Set<WidgetState> states) {
-              //         return Colors.grey;
-              //       }))
-              //     : null,
               child: const Text('Generate IPU Recommendation'),
             ),
             const SizedBox(height: 20),

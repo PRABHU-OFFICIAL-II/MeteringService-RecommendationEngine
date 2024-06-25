@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'chat_service.dart';
 import 'message.dart';
+import 'dart:async';
 
 class ChatScreen extends StatefulWidget {
   final ChatService chatService;
@@ -17,6 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<Message> _messages = [];
   bool _isLoading = false;
+  String _loadingMessage = '';
 
   Future<void> _sendMessage() async {
     if (_controller.text.isEmpty) return;
@@ -25,6 +26,7 @@ class _ChatScreenState extends State<ChatScreen> {
     setState(() {
       _messages.add(userMessage);
       _isLoading = true;
+      _loadingMessage = '';
     });
 
     _controller.clear();
@@ -33,8 +35,23 @@ class _ChatScreenState extends State<ChatScreen> {
         await widget.chatService.sendMessage(userMessage.text);
 
     setState(() {
-      _messages.add(responseMessage);
       _isLoading = false;
+    });
+
+    _displayResponseCharacterByCharacter(responseMessage.text);
+  }
+
+  void _displayResponseCharacterByCharacter(String text) async {
+    for (int i = 0; i < text.length; i++) {
+      await Future.delayed(const Duration(milliseconds: 1));
+      setState(() {
+        _loadingMessage += text[i];
+      });
+    }
+
+    setState(() {
+      _messages.add(Message(_loadingMessage, isUserMessage: false));
+      _loadingMessage = '';
     });
   }
 
@@ -51,20 +68,21 @@ class _ChatScreenState extends State<ChatScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "CDI Buddy is made to help you assist on your CDI and IICS works, please don't try to make him off context, and cooperate 😊",
+                "Data Integration Assistant is made to help you assist on your CDI and IICS works 😊",
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red),
+                    color: Colors.blue),
               )
             ],
           ),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(8.0),
-              itemCount: _messages.length + (_isLoading ? 1 : 0),
+              itemCount:
+                  _messages.length + (_loadingMessage.isNotEmpty ? 1 : 0),
               itemBuilder: (context, index) {
-                if (_isLoading && index == _messages.length) {
+                if (_loadingMessage.isNotEmpty && index == _messages.length) {
                   return Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
@@ -72,10 +90,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           vertical: 10, horizontal: 14),
                       margin: const EdgeInsets.symmetric(
                           vertical: 4, horizontal: 10),
-                      child: const SpinKitRing(
-                        color: Colors.blue,
-                        lineWidth: 4,
-                        size: 40,
+                      child: Text(
+                        _loadingMessage,
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ),
                   );
@@ -111,6 +128,11 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
+          if (_isLoading)
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(),
+            ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -129,7 +151,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.send),
+                  icon: const Icon(
+                    Icons.send,
+                    color: Colors.blue,
+                  ),
                   onPressed: _sendMessage,
                 ),
               ],

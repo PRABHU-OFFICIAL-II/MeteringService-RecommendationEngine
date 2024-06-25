@@ -2,26 +2,26 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
-import 'package:recommendation_engine_ipu/models/recommendation_screen.dart';
+import 'package:recommendation_engine_ipu/data/project_level_tasks.dart'
+    as ProjectLevelTaskData;
 import 'package:recommendation_engine_ipu/data/top_ten_tasks.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:recommendation_engine_ipu/querry_model/chat_screen.dart';
 import 'package:recommendation_engine_ipu/querry_model/chat_service.dart';
 import 'package:recommendation_engine_ipu/screens/data_fetcher.dart';
 import 'package:recommendation_engine_ipu/screens/login.dart';
 
-class DisplayData extends StatefulWidget {
+class SecondaryDisplayData extends StatefulWidget {
   final String icSessionId;
   final String serverUrl;
 
-  const DisplayData({
+  const SecondaryDisplayData({
     super.key,
     required this.icSessionId,
     required this.serverUrl,
   });
 
   @override
-  State<DisplayData> createState() => _DisplayDataState();
+  State<SecondaryDisplayData> createState() => _SecondaryDisplayDataState();
 }
 
 class TaskData {
@@ -31,11 +31,16 @@ class TaskData {
   TaskData({required this.date, required this.taskCount});
 }
 
-class _DisplayDataState extends State<DisplayData>
-    with SingleTickerProviderStateMixin {
+class ProjectTaskCount {
+  final String projectName;
+  final int taskCount;
+
+  ProjectTaskCount(this.projectName, this.taskCount);
+}
+
+class _SecondaryDisplayDataState extends State<SecondaryDisplayData> {
   late List<TaskData> taskData;
   late Map<String, dynamic> orgData = {};
-  final gemini = Gemini.instance;
 
   Future<Map<String, dynamic>> fetchData() async {
     Map<String, String> getHeaders = {
@@ -296,31 +301,47 @@ class _DisplayDataState extends State<DisplayData>
                                   ),
                                   Expanded(
                                     flex: 1,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          width: 1000,
-                                          child: Column(
-                                            children: [
-                                              const Text(
-                                                "Most Expensive Jobs",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                              SizedBox(
-                                                  height: 260,
-                                                  child: TopTenTasks(
-                                                      tasks: tasks)),
-                                            ],
+                                    child: SizedBox(
+                                      height: 650,
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 320,
+                                            child: Column(
+                                              children: [
+                                                const Text(
+                                                  "Most Expensive Jobs",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
+                                                ),
+                                                TopTenTasks(tasks: tasks),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 350,
-                                          width: double.maxFinite,
-                                          child: RecommendationScreen(),
-                                        )
-                                      ],
+                                          SizedBox(
+                                            height: 320,
+                                            child: Column(
+                                              children: [
+                                                const Text(
+                                                  "Project Level Tasks",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                                ProjectLevelTaskData
+                                                    .ProjectLevelTasks(
+                                                        tasks: tasks),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],

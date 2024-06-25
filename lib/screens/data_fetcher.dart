@@ -4,7 +4,7 @@ import 'package:archive/archive.dart';
 import 'package:path/path.dart' as path;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:recommendation_engine_ipu/data/display_data.dart';
+import 'package:recommendation_engine_ipu/data/secondary_display_data.dart';
 
 class DataFetcher extends StatefulWidget {
   final String icSessionId;
@@ -150,7 +150,7 @@ class _DataFetcherState extends State<DataFetcher> {
             'assets/masterEngine.png', 'Master Engine is Up and Running');
         await Future.delayed(const Duration(seconds: 2));
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => DisplayData(
+            builder: (context) => SecondaryDisplayData(
                   icSessionId: icSessionId,
                   serverUrl: serverUrl,
                 )));

@@ -42,16 +42,19 @@ class _TopTenTasksState extends State<TopTenTasks> {
       pieChartData[entry.key] = entry.value;
     }
 
-    return PieChart(
-      dataMap: pieChartData,
-      animationDuration: const Duration(milliseconds: 800),
-      chartLegendSpacing: 32,
-      chartRadius: MediaQuery.of(context).size.width / 2.7,
-      chartValuesOptions: const ChartValuesOptions(
-        showChartValuesInPercentage: true,
-        showChartValuesOutside: true,
+    return SizedBox(
+      height: 280,
+      child: PieChart(
+        dataMap: pieChartData,
+        animationDuration: const Duration(milliseconds: 800),
+        chartLegendSpacing: 40,
+        chartRadius: MediaQuery.of(context).size.width / 2.7,
+        chartValuesOptions: const ChartValuesOptions(
+          showChartValuesInPercentage: true,
+          showChartValuesOutside: true,
+        ),
+        chartType: ChartType.ring,
       ),
-      chartType: ChartType.ring,
     );
   }
 }
