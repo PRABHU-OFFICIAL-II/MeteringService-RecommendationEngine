@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-// import 'dart:html' as html; // Web-specific import for downloading files
 import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:path/path.dart' as path;

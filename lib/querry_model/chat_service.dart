@@ -10,15 +10,17 @@ class ChatService {
       : _model = GenerativeModel(
             model: 'gemini-1.5-flash',
             apiKey: apiKey,
-            generationConfig: GenerationConfig(maxOutputTokens: 1000));
+            generationConfig: GenerationConfig(maxOutputTokens: 2000));
 
   Future<Message> sendMessage(String text) async {
     String textContent =
         await rootBundle.loadString('assets/CDI_build_data.txt');
     var chat = _model.startChat(history: [
+      Content.text(
+          "Hey your name is Data Integration Assistant and use this data $textContent, to answer the user queries"),
       Content.model([
         TextPart(
-            'Hello, My name is CDI Buddy, I am here to answer all your questions related to Cloud Data Integration for Informatica Intelligent cloud Services 😃, I will never talk anything different from IICS and CDI, please cooperate $textContent')
+            'Hello, My name is Data Integration Assistant, I am here to answer all your questions related to Cloud Data Integration for Informatica Intelligent cloud Services 😃')
       ])
     ]);
     var content = Content.text(text);
