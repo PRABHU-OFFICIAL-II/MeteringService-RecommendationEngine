@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:recommendation_engine_ipu/data/constants.dart';
 import 'message.dart';
 
 class ChatService {
@@ -8,7 +9,7 @@ class ChatService {
 
   ChatService(String apiKey)
       : _model = GenerativeModel(
-            model: 'gemini-1.5-flash',
+            model: Constants.model, // Azure Open AI model
             apiKey: apiKey,
             generationConfig: GenerationConfig(maxOutputTokens: 2000));
 

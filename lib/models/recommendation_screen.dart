@@ -4,6 +4,7 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:recommendation_engine_ipu/data/constants.dart';
 
 class RecommendationScreen extends StatefulWidget {
   const RecommendationScreen({super.key});
@@ -54,10 +55,10 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
       _timer?.cancel();
     });
     try {
-      final gemini = Gemini.instance;
+      final azure = Constants.azure;
       final prompt = _generatePrompt(tasks, result);
 
-      final value = await gemini.text(prompt);
+      final value = await azure.text(prompt);
       setState(() {
         recommendation = value?.output ?? 'No recommendation available';
         loading = false;
