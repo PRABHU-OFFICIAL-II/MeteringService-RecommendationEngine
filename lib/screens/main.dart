@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:recommendation_engine_ipu/data/constants.dart';
 import 'package:recommendation_engine_ipu/screens/login.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() {
   // await dotenv.load(fileName: "api_key.env");
-  Gemini.init(apiKey: 'AIzaSyBeqN6UNeJxjSFt6yI56QQH8SdCxSSE0_c');
+  // Gemini.init(apiKey: 'AIzaSyBeqN6UNeJxjSFt6yI56QQH8SdCxSSE0_c');
+  Constants.azureInit;
   runApp(const MyApp());
 }
 
