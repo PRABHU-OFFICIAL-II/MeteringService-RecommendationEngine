@@ -5,7 +5,6 @@ import 'package:recommendation_engine_ipu/screens/login.dart';
 
 void main() {
   // await dotenv.load(fileName: "api_key.env");
-  // Gemini.init(apiKey: 'AIzaSyBeqN6UNeJxjSFt6yI56QQH8SdCxSSE0_c');
   Constants.azureInit;
   runApp(const MyApp());
 }
